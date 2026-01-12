@@ -618,3 +618,8 @@ footer {
   }
 }
 
+/* Hide navbar when modal is open */
+body.modal-open .navbar {
+  display: none;
+}
+
