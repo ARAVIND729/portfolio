@@ -526,3 +526,95 @@ footer {
   color: #e5e7eb;
   word-break: break-all;
 }
+
+/* =========================
+   MOBILE FIXES (<=768px)
+========================= */
+@media (max-width: 768px) {
+
+  /* NAVBAR */
+  .nav-container {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .nav-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 100px 20px 40px;
+  }
+
+  .hero-content {
+    gap: 24px;
+  }
+
+  .hero-image {
+    width: 180px;
+  }
+
+  .hero-text h1 {
+    font-size: 26px;
+  }
+
+  .hero-text h2 {
+    font-size: 20px;
+  }
+
+  .hero-text p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 40px 20px;
+  }
+
+  /* PROJECT GRID */
+  .projects-grid {
+    gap: 20px;
+  }
+
+  .project-card img {
+    height: 160px;
+  }
+
+  /* MODAL */
+  .project-modal-box {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-image {
+    height: 200px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* EDUCATION / EXPERIENCE */
+  .education-card,
+  .experience-card {
+    padding: 20px;
+  }
+
+  /* CONTACT */
+  .contact-card {
+    padding: 18px;
+  }
+}
+
