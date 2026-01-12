@@ -100,8 +100,12 @@ modalClose.addEventListener("click", () => {
 });
 
 modal.addEventListener("click", e => {
-  if (e.target === modal) modal.style.display = "none";
+  if (e.target === modal) {
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+  }
 });
+
 
 window.addEventListener("keydown", e => {
   if (e.key === "Escape") {
@@ -110,4 +114,5 @@ window.addEventListener("keydown", e => {
 }
 
 });
+
 
