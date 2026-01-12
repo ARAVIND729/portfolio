@@ -622,4 +622,8 @@ footer {
 body.modal-open .navbar {
   display: none;
 }
+body {
+  padding-top: 80px; /* space for fixed navbar */
+}
+
 
