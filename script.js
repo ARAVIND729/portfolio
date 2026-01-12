@@ -88,11 +88,15 @@ document.querySelectorAll(".project-card").forEach(card => {
     modalLive.href = card.dataset.live;
 
     modal.style.display = "flex";
+    document.body.classList.add("modal-open");
+
   });
 });
 
 modalClose.addEventListener("click", () => {
   modal.style.display = "none";
+  document.body.classList.remove("modal-open");
+
 });
 
 modal.addEventListener("click", e => {
@@ -100,5 +104,10 @@ modal.addEventListener("click", e => {
 });
 
 window.addEventListener("keydown", e => {
-  if (e.key === "Escape") modal.style.display = "none";
+  if (e.key === "Escape") {
+  modal.style.display = "none";
+  document.body.classList.remove("modal-open");
+}
+
 });
+
