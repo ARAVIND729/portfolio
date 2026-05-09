@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (charIndex < roles[roleIndex].length) {
 
-      typing.textContent += roles[roleIndex].charAt(charIndex);
+      typing.textContent +=
+        roles[roleIndex].charAt(charIndex);
+
       charIndex++;
 
       setTimeout(type, 100);
@@ -49,7 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } else {
 
-      roleIndex = (roleIndex + 1) % roles.length;
+      roleIndex =
+        (roleIndex + 1) % roles.length;
 
       setTimeout(type, 300);
 
@@ -64,111 +67,167 @@ document.addEventListener("DOMContentLoaded", () => {
      SCROLL REVEAL
   ========================= */
 
-  const reveals = document.querySelectorAll(".reveal");
+  const reveals =
+    document.querySelectorAll(".reveal");
 
   if (reveals.length) {
 
-    const observer = new IntersectionObserver(entries => {
+    const observer =
+      new IntersectionObserver(entries => {
 
-      entries.forEach(entry => {
+        entries.forEach(entry => {
 
-        if (entry.isIntersecting) {
-          entry.target.classList.add("active");
-        }
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
 
+        });
+
+      }, {
+        threshold: 0.15
       });
 
-    }, {
-      threshold: 0.15
-    });
-
-    reveals.forEach(el => observer.observe(el));
+    reveals.forEach(el =>
+      observer.observe(el)
+    );
   }
 
   /* =========================
      PROJECT MODAL
   ========================= */
 
-  const modal = document.getElementById("projectModal");
+  const modal =
+    document.getElementById("projectModal");
 
-  const modalImage = document.getElementById("modalImage");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalYear = document.getElementById("modalYear");
-  const modalDesc = document.getElementById("modalDescription");
-  const modalTags = document.getElementById("modalTags");
+  const modalImage =
+    document.getElementById("modalImage");
 
-  const modalGithub = document.getElementById("modalGithub");
-  const modalLive = document.getElementById("modalLive");
+  const modalTitle =
+    document.getElementById("modalTitle");
 
-  const modalClose = document.querySelector(".modal-close");
+  const modalYear =
+    document.getElementById("modalYear");
+
+  const modalDesc =
+    document.getElementById("modalDescription");
+
+  const modalTags =
+    document.getElementById("modalTags");
+
+  const modalGithub =
+    document.getElementById("modalGithub");
+
+  const modalLive =
+    document.getElementById("modalLive");
+
+  const modalClose =
+    document.querySelector(".modal-close");
+
+  const modalScroll =
+    document.querySelector(".modal-scroll");
 
   /* =========================
      OPEN MODAL
   ========================= */
 
-  document.querySelectorAll(".project-card").forEach(card => {
+  document.querySelectorAll(".project-card")
+    .forEach(card => {
 
-    card.addEventListener("click", () => {
+      card.addEventListener("click", () => {
 
-      modalImage.src = card.dataset.image;
+        /* IMAGE */
 
-      modalTitle.textContent = card.dataset.title;
+        modalImage.src =
+          card.dataset.image;
 
-      modalYear.textContent = card.dataset.year;
+        /* TITLE */
 
-      /* IMPORTANT FIX */
-      modalDesc.innerHTML = card.dataset.description;
+        modalTitle.textContent =
+          card.dataset.title;
 
-      /* TAGS */
+        /* YEAR */
 
-      modalTags.innerHTML = "";
+        modalYear.textContent =
+          card.dataset.year;
 
-      card.dataset.tags.split(",").forEach(tag => {
+        /* DESCRIPTION */
 
-        const span = document.createElement("span");
+        /* IMPORTANT FIX */
+        modalDesc.innerHTML =
+          card.dataset.description;
 
-        span.textContent = tag.trim();
+        /* TAGS */
 
-        modalTags.appendChild(span);
+        modalTags.innerHTML = "";
+
+        card.dataset.tags
+          .split(",")
+          .forEach(tag => {
+
+            const span =
+              document.createElement("span");
+
+            span.textContent =
+              tag.trim();
+
+            modalTags.appendChild(span);
+
+          });
+
+        /* LINKS */
+
+        modalGithub.href =
+          card.dataset.github;
+
+        modalLive.href =
+          card.dataset.live;
+
+        /* SHOW MODAL */
+
+        modal.style.display = "flex";
+
+        /* LOCK BACKGROUND SCROLL */
+
+        document.body.classList.add("modal-open");
+
+        /* RESET MODAL SCROLL */
+
+        if (modalScroll) {
+          modalScroll.scrollTop = 0;
+        }
 
       });
 
-      /* LINKS */
-
-      modalGithub.href = card.dataset.github;
-      modalLive.href = card.dataset.live;
-
-      /* SHOW MODAL */
-
-      modal.style.display = "flex";
-
-      /* STOP BACKGROUND SCROLL */
-
-      document.body.style.overflow = "hidden";
-
     });
 
-  });
-
   /* =========================
-     CLOSE MODAL
+     CLOSE MODAL FUNCTION
   ========================= */
 
   function closeModal() {
 
     modal.style.display = "none";
 
-    /* ENABLE BACKGROUND SCROLL AGAIN */
-
-    document.body.style.overflow = "auto";
+    document.body.classList.remove("modal-open");
 
   }
 
-  /* CLOSE BUTTON */
+  /* =========================
+     CLOSE BUTTON
+  ========================= */
 
-  modalClose.addEventListener("click", closeModal);
+  if (modalClose) {
 
-  /* CLICK OUTSIDE */
+    modalClose.addEventListener(
+      "click",
+      closeModal
+    );
+
+  }
+
+  /* =========================
+     CLICK OUTSIDE MODAL
+  ========================= */
 
   modal.addEventListener("click", e => {
 
@@ -178,7 +237,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
-  /* ESC KEY */
+  /* =========================
+     ESC KEY CLOSE
+  ========================= */
 
   window.addEventListener("keydown", e => {
 
@@ -189,30 +250,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================
-     FIX SCROLL INSIDE MODAL
+     FIX SCROLL LEAK
   ========================= */
 
-  const modalContent = document.querySelector(".modal-content");
+  if (modalScroll) {
 
-  if (modalContent) {
+    modalScroll.addEventListener(
+      "wheel",
+      e => {
 
-    modalContent.addEventListener("wheel", e => {
+        const atTop =
+          modalScroll.scrollTop === 0;
 
-      const isAtTop =
-        modalContent.scrollTop === 0;
+        const atBottom =
+          modalScroll.scrollHeight -
+          modalScroll.scrollTop <=
+          modalScroll.clientHeight + 1;
 
-      const isAtBottom =
-        modalContent.scrollHeight - modalContent.scrollTop ===
-        modalContent.clientHeight;
+        if (
+          (atTop && e.deltaY < 0) ||
+          (atBottom && e.deltaY > 0)
+        ) {
+          e.preventDefault();
+        }
 
-      if (
-        (isAtTop && e.deltaY < 0) ||
-        (isAtBottom && e.deltaY > 0)
-      ) {
-        e.preventDefault();
-      }
-
-    }, { passive: false });
+      },
+      { passive: false }
+    );
 
   }
 
